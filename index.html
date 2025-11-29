@@ -20,20 +20,6 @@
       --shadow-strong: 0 24px 80px rgba(0,0,0,0.65);
     }
 
-    /* Light theme override */
-    :root.light {
-      --bg: #f3f4f6;
-      --bg-elevated: #ffffff;
-      --bg-input: #f9fafb;
-      --accent: #4f46e5;
-      --accent-soft: rgba(79, 70, 229, 0.07);
-      --text: #111827;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
-      --danger: #dc2626;
-      --shadow-strong: 0 18px 55px rgba(15,23,42,0.18);
-    }
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -49,10 +35,6 @@
       align-items: center;
       justify-content: center;
       padding: 16px;
-    }
-
-    :root.light body {
-      background: radial-gradient(circle at top, #e5e7eb 0, #d1d5db 40%, #9ca3af 85%);
     }
 
     .app-shell {
@@ -79,12 +61,6 @@
       overflow: hidden;
     }
 
-    :root.light .app-inner {
-      background: radial-gradient(circle at top left, rgba(79,70,229,0.1) 0, transparent 40%),
-                  radial-gradient(circle at bottom right, rgba(14,165,233,0.1) 0, transparent 45%),
-                  #f9fafb;
-    }
-
     /* Left: chat */
     .chat-pane {
       display: flex;
@@ -94,22 +70,13 @@
       background: linear-gradient(145deg, rgba(15,23,42,0.9), rgba(15,23,42,0.4));
     }
 
-    :root.light .chat-pane {
-      background: linear-gradient(145deg, rgba(249,250,251,0.98), rgba(243,244,246,0.9));
-    }
-
     .chat-header {
-      padding: 12px 20px;
+      padding: 16px 20px;
       display: flex;
       align-items: center;
       gap: 12px;
       border-bottom: 1px solid rgba(148,163,184,0.26);
       background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(30,64,175,0.65));
-    }
-
-    :root.light .chat-header {
-      background: linear-gradient(135deg, #eef2ff, #dbeafe);
-      color: #0f172a;
     }
 
     .chat-avatar {
@@ -142,10 +109,6 @@
       opacity: 0.8;
     }
 
-    :root.light .chat-subtitle {
-      color: #4b5563;
-    }
-
     .chat-status-dot {
       width: 8px;
       height: 8px;
@@ -155,75 +118,15 @@
       margin-inline-start: auto;
     }
 
-    /* Room tabs */
-    .room-tabs {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      padding: 8px 16px 4px;
-      border-bottom: 1px solid rgba(148,163,184,0.2);
-      background: rgba(15,23,42,0.85);
-    }
-
-    :root.light .room-tabs {
-      background: rgba(249,250,251,0.96);
-    }
-
-    .room-tabs-list {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      scrollbar-width: thin;
-    }
-
-    .room-tabs-list::-webkit-scrollbar {
-      height: 4px;
-    }
-    .room-tabs-list::-webkit-scrollbar-thumb {
-      background: rgba(148,163,184,0.5);
-      border-radius: 999px;
-    }
-
-    .room-tab {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: transparent;
-      color: var(--text-muted);
-      padding: 4px 10px;
-      font-size: 11px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      transition: all 0.17s ease;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .room-tab.active {
-      background: var(--accent-soft);
-      color: var(--text);
-      border-color: var(--accent);
-    }
-
-    .room-tab.create {
-      font-weight: 600;
-      border-style: dashed;
-    }
-
-    
     .messages {
-      height: calc(100vh - 260px); /* ارتفاع اتوماتیک طبق صفحه */
-      max-height: calc(100vh - 260px);
+      flex: 1;
+      padding: 16px 20px;
       overflow-y: auto;
-      padding: 12px 20px 16px;
       display: flex;
       flex-direction: column;
       gap: 10px;
       scroll-behavior: smooth;
     }
-
 
     .messages::-webkit-scrollbar {
       width: 6px;
@@ -281,10 +184,6 @@
       color: #e5e7eb;
     }
 
-    :root.light .msg-name {
-      color: #111827;
-    }
-
     .msg-time {
       opacity: 0.85;
     }
@@ -297,19 +196,6 @@
       word-break: break-word;
       background: rgba(15,23,42,0.85);
       border: 1px solid rgba(148,163,184,0.3);
-      color: #e5e7eb;
-    }
-
-    :root.light .msg-bubble {
-      background: #ffffff;
-      border-color: #e5e7eb;
-      color: #111827;
-    }
-
-    .msg-bubble img {
-      max-width: 260px;
-      border-radius: 12px;
-      display: block;
     }
 
     .msg-row.me .msg-bubble {
@@ -320,19 +206,6 @@
 
     .msg-row.me .msg-meta {
       justify-content: flex-end;
-    }
-
-    .msg-delete-btn {
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 12px;
-      cursor: pointer;
-      padding: 0 2px;
-    }
-
-    .msg-delete-btn:hover {
-      color: var(--danger);
     }
 
     @keyframes fadeUp {
@@ -355,10 +228,6 @@
       background: radial-gradient(circle at top, rgba(15,23,42,0.95), rgba(15,23,42,0.9));
     }
 
-    :root.light .chat-input-bar {
-      background: rgba(249,250,251,0.98);
-    }
-
     .name-row {
       display: flex;
       gap: 10px;
@@ -368,6 +237,7 @@
     }
 
     .name-input {
+      flex: 1;
       background: var(--bg-input);
       border-radius: var(--radius-full);
       border: 1px solid var(--border);
@@ -387,6 +257,7 @@
     }
 
     .msg-input {
+      flex: 1;
       border-radius: 999px;
       border: 1px solid rgba(148,163,184,0.4);
       padding: 10px 14px;
@@ -424,52 +295,23 @@
       height: 16px;
     }
 
-    .btn-icon {
-      border-radius: 999px;
-      border: 1px dashed rgba(148,163,184,0.7);
-      background: transparent;
-      color: var(--text-muted);
-      padding: 7px 10px;
-      font-size: 14px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .btn-icon:hover {
-      border-style: solid;
-      color: var(--text);
-    }
-
     .tiny-note {
       font-size: 10px;
       color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
     }
 
     .tiny-note strong {
       color: #e5e7eb;
     }
 
-    :root.light .tiny-note strong {
-      color: #111827;
-    }
-
-    #typingIndicator {
-      min-height: 1.1em;
-    }
-
+    /* Right pane (info) */
     .info-pane {
-      display: none;
-    }
-
-
-    :root.light .info-pane {
-      background: radial-gradient(circle at top right, rgba(56,189,248,0.12), transparent 55%),
-                  #f3f4f6;
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.16), transparent 55%),
+                  rgba(15,23,42,0.96);
     }
 
     .info-badge {
@@ -482,13 +324,6 @@
       border-radius: 999px;
       background: rgba(15,23,42,0.9);
       border: 1px solid rgba(148,163,184,0.4);
-      color: #e5e7eb;
-    }
-
-    :root.light .info-badge {
-      background: #eef2ff;
-      color: #1f2937;
-      border-color: #c7d2fe;
     }
 
     .info-title {
@@ -503,7 +338,7 @@
     }
 
     .info-card {
-      margin-top: 4px;
+      margin-top: 10px;
       padding: 12px;
       border-radius: 16px;
       background: rgba(15,23,42,0.86);
@@ -512,11 +347,6 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-    }
-
-    :root.light .info-card {
-      background: #ffffff;
-      border-color: #e5e7eb;
     }
 
     .info-card h3 {
@@ -539,12 +369,6 @@
       border: 1px solid rgba(148,163,184,0.6);
       font-size: 10px;
       color: #e5e7eb;
-    }
-
-    :root.light .pill {
-      background: #f3f4f6;
-      border-color: #d1d5db;
-      color: #111827;
     }
 
     .status-dot-live {
@@ -572,57 +396,6 @@
       color: #fecaca;
       font-size: 10px;
       display: none;
-    }
-
-    :root.light .error-banner {
-      color: #b91c1c;
-      background: #fee2e2;
-      border-color: #fecaca;
-    }
-
-    .online-list {
-      list-style: none;
-      padding: 0;
-      margin: 2px 0 0;
-      max-height: 120px;
-      overflow-y: auto;
-    }
-
-    .online-list li {
-      font-size: 11px;
-      padding: 2px 0;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-    }
-
-    .online-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
-
-    .theme-toggle {
-      align-self: flex-start;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: transparent;
-      padding: 5px 10px;
-      font-size: 11px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-    }
-
-    .theme-toggle span.dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--accent);
     }
 
     @media (max-width: 900px) {
@@ -658,12 +431,6 @@
           <div class="chat-status-dot" title="Realtime"></div>
         </header>
 
-        <!-- اتاق‌ها -->
-        <div class="room-tabs">
-          <div id="roomTabs" class="room-tabs-list"></div>
-          <button type="button" id="createRoomBtn" class="room-tab create">+ اتاق جدید</button>
-        </div>
-
         <div id="messages" class="messages" aria-live="polite"></div>
 
         <div class="chat-input-bar">
@@ -673,20 +440,15 @@
           </div>
 
           <div class="main-input-row">
-            <button id="imageBtn" class="btn-icon" type="button" title="ارسال تصویر">
-              📎
-            </button>
             <input
               id="messageInput"
               class="msg-input"
               type="text"
               placeholder="پیام خودت رو بنویس و Enter بزن..."
             />
-            <button id="sendBtn" class="btn-send" type="button">
+            <button id="sendBtn" class="btn-send">
               <span>ارسال</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                   stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                   stroke-linejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 2 11 13" />
                 <path d="M22 2 15 22 11 13 2 9 22 2z" />
               </svg>
@@ -694,41 +456,76 @@
           </div>
 
           <p class="tiny-note">
-            <span id="typingIndicator"></span>
-            <span>
-              تمام پیام‌ها در <strong>Firebase Realtime Database</strong> ذخیره می‌شوند و
-              برای همه‌ی افراد آنلاین در همان اتاق نمایش داده می‌شوند.
-            </span>
+            تمام پیام‌ها در <strong>Firebase Realtime Database</strong> ذخیره می‌شوند و برای همه‌ی افراد آنلاین نمایش داده می‌شوند.
           </p>
           <div id="errorBanner" class="error-banner"></div>
         </div>
       </div>
 
-  <input id="imageInput" type="file" accept="image/*" style="display:none" />
+      <!-- Info pane -->
+      <aside class="info-pane">
+        <div class="info-badge">
+          <span>🔥 Realtime Firebase Chat</span>
+        </div>
+        <div>
+          <h2 class="info-title">چت ساده اما حرفه‌ای</h2>
+          <p class="info-sub">
+            این صفحه یک پیام‌رسان ساده است که با استفاده از Firebase Realtime Database ساخته شده.
+            هر پیامی که ارسال می‌کنی، برای همه‌ی افرادی که همین صفحه را باز کرده‌اند به صورت آنی نمایش داده می‌شود.
+          </p>
+        </div>
 
-  <!-- Firebase + Chat Logic -->
+        <div class="info-card">
+          <h3>ویژگی‌ها</h3>
+          <div class="pill-row">
+            <span class="pill">Realtime 🔁</span>
+            <span class="pill">چند‌نفره 👥</span>
+            <span class="pill">نمایش نام فرستنده 🏷️</span>
+            <span class="pill">ذخیره در دیتابیس ☁️</span>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3>نکته‌ی مهم</h3>
+          <p>
+            برای تست راحت، در بخش <strong>Realtime Database → Rules</strong> در Firebase می‌تونی موقتاً دسترسی را
+            روی <code>.read: true</code> و <code>.write: true</code> قرار بدی. بعد از تست حتماً قوانین را سخت‌گیرانه‌تر کن.
+          </p>
+        </div>
+
+        <div class="info-card">
+          <div class="status-row">
+            <span class="status-dot-live"></span>
+            <span>همه‌ی تب‌ها و دستگاه‌ها هم‌زمان سینک می‌شوند. این همون رفتاریه که از پیام‌رسان‌ها انتظار داری.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import {
       getDatabase,
-      ref,
+      ref as dbRef,
       push,
       onChildAdded,
       onChildRemoved,
-      serverTimestamp,
-      onDisconnect,
-      set,
+      onValue,
       remove,
-      onValue
+      set,
+      serverTimestamp,
+      onDisconnect
     } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+  
     import {
       getStorage,
       ref as storageRef,
       uploadBytes,
       getDownloadURL
     } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
-
-    // --- تنظیمات Firebase پروژه خودت ---
+  
+    // ---------- تنظیمات Firebase ----------
     const firebaseConfig = {
       apiKey: "AIzaSyCveXOeDHup-MKQnMLe7gxSqePFOfPaKRs",
       authDomain: "facebook-chat-3c9e1.firebaseapp.com",
@@ -739,77 +536,164 @@
       measurementId: "G-7HK5GX0XFL",
       databaseURL: "https://facebook-chat-3c9e1-default-rtdb.firebaseio.com"
     };
-
+  
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const storage = getStorage(app);
-
-    // عناصر DOM
+  
+    // ---------- انتخاب اتاق (Rooms) ----------
+    function chooseRoom() {
+      let saved = localStorage.getItem("parhamChatRoom") || "general";
+      let room = prompt(
+        "اتاق را انتخاب کن: general / friends / family\n(خالی = general)",
+        saved
+      );
+  
+      room = (room || "general").trim().toLowerCase();
+      if (room === "family") {
+        const pass = prompt("رمز اتاق خانوادگی چیست؟ (مثلاً 1234)");
+        if (pass !== "1234") {
+          alert("رمز اشتباه بود، وارد اتاق عمومی (general) شدی.");
+          room = "general";
+        }
+      }
+      localStorage.setItem("parhamChatRoom", room);
+      return room;
+    }
+  
+    const currentRoom = chooseRoom();
+  
+    // ---------- ریفرنس‌های دیتابیس ----------
+    const messagesRef = dbRef(db, `rooms/${currentRoom}/messages`);
+    const typingRef = dbRef(db, `rooms/${currentRoom}/typing`);
+    const onlineRef = dbRef(db, `rooms/${currentRoom}/online`);
+  
+    // ---------- المنت‌های صفحه ----------
     const messagesContainer = document.getElementById("messages");
     const nameInput = document.getElementById("nameInput");
     const messageInput = document.getElementById("messageInput");
     const sendBtn = document.getElementById("sendBtn");
     const errorBanner = document.getElementById("errorBanner");
-    const typingIndicator = document.getElementById("typingIndicator");
-    const onlineList = document.getElementById("onlineList");
-    const imageBtn = document.getElementById("imageBtn");
-    const imageInput = document.getElementById("imageInput");
-    const themeToggle = document.getElementById("themeToggle");
-    const themeToggleLabel = document.getElementById("themeToggleLabel");
-    const roomTabsContainer = document.getElementById("roomTabs");
-    const createRoomBtn = document.getElementById("createRoomBtn");
-
-    // شناسه یکتا برای هر تب/دستگاه
+  
+    // اضافه کردن indicator تایپ کردن
+    const chatInputBar = document.querySelector(".chat-input-bar");
+    const typingIndicator = document.createElement("p");
+    typingIndicator.id = "typingIndicator";
+    typingIndicator.className = "tiny-note";
+    typingIndicator.style.display = "none";
+    chatInputBar.appendChild(typingIndicator);
+  
+    // اضافه کردن کارت تنظیمات + کاربران آنلاین در پنل راست
+    const infoPane = document.querySelector(".info-pane");
+  
+    // کارت کاربران آنلاین
+    const onlineCard = document.createElement("div");
+    onlineCard.className = "info-card";
+    onlineCard.innerHTML = `
+      <h3>کاربران آنلاین</h3>
+      <ul id="onlineList" style="margin-top:4px; list-style:none; padding:0; font-size:11px;"></ul>
+    `;
+    infoPane.appendChild(onlineCard);
+    const onlineListEl = document.getElementById("onlineList");
+  
+    // کارت تنظیمات
+    const settingsCard = document.createElement("div");
+    settingsCard.className = "info-card";
+    settingsCard.innerHTML = `
+      <h3>تنظیمات</h3>
+      <div class="pill-row">
+        <button id="toggleThemeBtn" class="pill">تم روشن / تیره</button>
+        <button id="enableNotifBtn" class="pill">فعال کردن نوتیفیکیشن</button>
+      </div>
+    `;
+    infoPane.appendChild(settingsCard);
+    const toggleThemeBtn = document.getElementById("toggleThemeBtn");
+    const enableNotifBtn = document.getElementById("enableNotifBtn");
+  
+    // ---------- دکمه ارسال عکس ----------
+    const mainInputRow = document.querySelector(".main-input-row");
+    const imageBtn = document.createElement("button");
+    imageBtn.type = "button";
+    imageBtn.textContent = "📷";
+    imageBtn.title = "ارسال تصویر";
+    imageBtn.style.borderRadius = "999px";
+    imageBtn.style.border = "none";
+    imageBtn.style.padding = "8px 10px";
+    imageBtn.style.background = "rgba(15,23,42,0.9)";
+    imageBtn.style.color = "#e5e7eb";
+    imageBtn.style.cursor = "pointer";
+  
+    // دکمه قبل از send قرار بگیره
+    mainInputRow.insertBefore(imageBtn, sendBtn);
+  
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = "image/*";
+    fileInput.style.display = "none";
+    document.body.appendChild(fileInput);
+  
+    // ---------- شناسه یکتای تب ----------
     const myId = self.crypto?.randomUUID
       ? self.crypto.randomUUID()
       : "id-" + Math.random().toString(36).slice(2);
-
-    let currentRoom = "general";
-
-    // برای قطع لیسنرها وقتی اتاق عوض می‌شود
-    let unsubscribeMessages = null;
-    let unsubscribeRemoved = null;
-    let unsubscribeTyping = null;
-    let unsubscribeOnline = null;
-
-    // برای کنترل "در حال تایپ..."
-    let typingTimeout = null;
-
-    // برای جلوگیری از نوتیفیکیشن روی پیام‌های قدیمی
-    let initialLoadDone = false;
-    setTimeout(() => { initialLoadDone = true; }, 2000);
-
-    // اتاق‌های پیش‌فرض
-    const defaultRooms = {
-      general: { id: "general", name: "عمومی", isPrivate: false },
-      friends: { id: "friends", name: "دوستان", isPrivate: false },
-      family: { id: "family", name: "خانوادگی", isPrivate: true, password: "1234" } // رمز تست
-    };
-
-    // اتاق‌های ساخته شده توسط کاربر (از دیتابیس)
-    let customRooms = {};
-
-    // --- Theme initial ---
-    const savedTheme = localStorage.getItem("parham-chat-theme");
-    if (savedTheme === "light") {
-      document.documentElement.classList.add("light");
-      themeToggleLabel.textContent = "Light Mode";
+  
+    // ---------- Theme ----------
+    let currentTheme = localStorage.getItem("parhamChatTheme") || "dark";
+    function applyTheme() {
+      if (currentTheme === "light") {
+        document.body.classList.add("light-theme");
+      } else {
+        document.body.classList.remove("light-theme");
+      }
     }
-
-    themeToggle.addEventListener("click", () => {
-      const isLight = document.documentElement.classList.toggle("light");
-      localStorage.setItem("parham-chat-theme", isLight ? "light" : "dark");
-      themeToggleLabel.textContent = isLight ? "Light Mode" : "Dark Mode";
+    // استایل ساده برای تم روشن
+    const themeStyle = document.createElement("style");
+    themeStyle.textContent = `
+      body.light-theme {
+        background: #f3f4f6;
+        color: #020617;
+      }
+      body.light-theme .app-inner {
+        background: #e5e7eb;
+      }
+      body.light-theme .chat-pane,
+      body.light-theme .info-pane {
+        background: #ffffffee;
+        color: #020617;
+      }
+    `;
+    document.head.appendChild(themeStyle);
+    applyTheme();
+  
+    toggleThemeBtn.addEventListener("click", () => {
+      currentTheme = currentTheme === "dark" ? "light" : "dark";
+      localStorage.setItem("parhamChatTheme", currentTheme);
+      applyTheme();
     });
-
-    // --- Helper refs ---
-    const roomMessagesRef = (roomId) => ref(db, `rooms/${roomId}/messages`);
-    const roomOnlineRef = (roomId) => ref(db, `rooms/${roomId}/online`);
-    const myOnlineRef = (roomId) => ref(db, `rooms/${roomId}/online/${myId}`);
-    const roomTypingRef = (roomId) => ref(db, `rooms/${roomId}/typing`);
-    const myTypingRef = (roomId) => ref(db, `rooms/${roomId}/typing/${myId}`);
-    const roomsMetaRef = ref(db, "roomsMeta");
-
+  
+    // ---------- Notifications ----------
+    let notificationsEnabled = false;
+  
+    enableNotifBtn.addEventListener("click", async () => {
+      if (!("Notification" in window)) {
+        showError("مرورگرت از نوتیفیکیشن پشتیبانی نمی‌کند.");
+        return;
+      }
+      try {
+        const perm = await Notification.requestPermission();
+        if (perm === "granted") {
+          notificationsEnabled = true;
+          enableNotifBtn.textContent = "نوتیفیکیشن فعال است ✅";
+        } else {
+          showError("اجازه نوتیفیکیشن داده نشد.");
+        }
+      } catch (e) {
+        console.error(e);
+        showError("خطا هنگام فعال‌سازی نوتیفیکیشن.");
+      }
+    });
+  
+    // ---------- نمایش خطا ----------
     function showError(msg) {
       if (!errorBanner) return;
       errorBanner.textContent = msg;
@@ -818,460 +702,310 @@
         errorBanner.style.display = "none";
       }, 4000);
     }
-
+  
     function formatTimeFromDate(d) {
       const h = d.getHours().toString().padStart(2, "0");
       const m = d.getMinutes().toString().padStart(2, "0");
       return `${h}:${m}`;
     }
-
-    function getDisplayName() {
-      return nameInput.value.trim() || "Anonymous";
-    }
-
-    // --- ساخت و نمایش پیام ---
-    function createMessageElement(messageObj) {
-      const { name, text, authorId, createdAt, imageUrl, key } = messageObj;
+  
+    // ---------- ساخت المنت پیام ----------
+    function createMessageElement(messageObj, msgId) {
+      const { name, text, imageUrl, authorId, createdAt } = messageObj;
       const isMe = authorId === myId;
-
+  
       const row = document.createElement("div");
       row.className = "msg-row" + (isMe ? " me" : "");
-      row.dataset.key = key;
-
+      if (msgId) row.dataset.id = msgId;
+  
       if (!isMe) {
         const avatar = document.createElement("div");
         avatar.className = "msg-avatar";
         avatar.textContent = (name || "?").slice(0, 2).toUpperCase();
         row.appendChild(avatar);
       }
-
+  
       const wrap = document.createElement("div");
       wrap.className = "msg-bubble-wrap";
-
+  
       const meta = document.createElement("div");
       meta.className = "msg-meta";
-
+  
       if (!isMe) {
         const nameSpan = document.createElement("span");
         nameSpan.className = "msg-name";
         nameSpan.textContent = name || "Guest";
         meta.appendChild(nameSpan);
       }
-
+  
       const timeSpan = document.createElement("span");
       timeSpan.className = "msg-time";
       const dt = createdAt ? new Date(createdAt) : new Date();
       timeSpan.textContent = formatTimeFromDate(dt);
       meta.appendChild(timeSpan);
-
-      if (isMe) {
-        const delBtn = document.createElement("button");
-        delBtn.className = "msg-delete-btn";
-        delBtn.textContent = "🗑️";
-        delBtn.title = "حذف پیام";
-        delBtn.dataset.key = key;
-        meta.appendChild(delBtn);
-      }
-
+  
       const bubble = document.createElement("div");
       bubble.className = "msg-bubble";
-
+      if (text) bubble.textContent = text;
+  
+      // اگر عکس هست، زیر متن نمایش داده بشه
       if (imageUrl) {
+        if (text) {
+          const br = document.createElement("br");
+          bubble.appendChild(br);
+        }
         const img = document.createElement("img");
         img.src = imageUrl;
-        img.alt = text || "image";
+        img.style.maxWidth = "240px";
+        img.style.borderRadius = "12px";
+        img.style.marginTop = "4px";
+        img.alt = "image";
         bubble.appendChild(img);
-        if (text) {
-          const caption = document.createElement("div");
-          caption.textContent = text;
-          bubble.appendChild(caption);
-        }
-      } else {
-        bubble.textContent = text;
       }
-
+  
+      // دکمه حذف برای پیام‌های خودم
+      if (isMe && msgId) {
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "✖";
+        delBtn.title = "حذف پیام";
+        delBtn.style.marginInlineStart = "6px";
+        delBtn.style.fontSize = "10px";
+        delBtn.style.border = "none";
+        delBtn.style.background = "transparent";
+        delBtn.style.color = "rgba(248,250,252,0.7)";
+        delBtn.style.cursor = "pointer";
+  
+        delBtn.addEventListener("click", () => {
+          deleteMessage(msgId);
+        });
+  
+        meta.appendChild(delBtn);
+      }
+  
       wrap.appendChild(meta);
       wrap.appendChild(bubble);
       row.appendChild(wrap);
-
+  
       return row;
     }
-
-    function appendMessageToUI(messageObj) {
-      const el = createMessageElement(messageObj);
+  
+    function appendMessageToUI(messageObj, msgId) {
+      const el = createMessageElement(messageObj, msgId);
       messagesContainer.appendChild(el);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
-
-    function notifyNewMessage(messageObj) {
-      if (!("Notification" in window)) return;
-      if (messageObj.authorId === myId) return;
-      if (document.visibilityState === "visible") return;
-      if (!initialLoadDone) return;
-
-      if (Notification.permission === "default") {
-        Notification.requestPermission();
-      }
-
-      if (Notification.permission === "granted") {
-        const body = messageObj.text
-          ? messageObj.text
-          : "📷 تصویر جدید ارسال شد";
-        new Notification(messageObj.name || "پیام جدید", {
-          body
-        });
-      }
+  
+    // ---------- حضور کاربر (online users) ----------
+    const myPresenceRef = dbRef(db, `rooms/${currentRoom}/online/${myId}`);
+  
+    function updatePresence() {
+      const name = nameInput.value.trim() || "Anonymous";
+      set(myPresenceRef, {
+        name,
+        lastSeen: serverTimestamp()
+      }).catch((e) => console.error(e));
     }
-
-    async function sendMessage(text, imageUrl) {
-      const trimmed = (text || "").trim();
-      if (!trimmed && !imageUrl) {
+  
+    updatePresence();
+    onDisconnect(myPresenceRef).remove().catch(() => {});
+  
+    nameInput.addEventListener("blur", updatePresence);
+  
+    onValue(onlineRef, (snapshot) => {
+      const val = snapshot.val() || {};
+      const names = [];
+      onlineListEl.innerHTML = "";
+      Object.keys(val).forEach((id) => {
+        const u = val[id];
+        if (!u) return;
+        const nm = u.name || "Guest";
+        names.push(nm);
+        const li = document.createElement("li");
+        li.textContent = nm;
+        onlineListEl.appendChild(li);
+      });
+  
+      // عنوان صفحه: تعداد آنلاین
+      document.title = `Parham Chat (${names.length} online)`;
+    });
+  
+    // ---------- Typing Indicator ----------
+    let typingTimeout = null;
+  
+    function sendTypingStatus() {
+      const text = messageInput.value.trim();
+      const name = nameInput.value.trim() || "Anonymous";
+      const myTypingRef = dbRef(db, `rooms/${currentRoom}/typing/${myId}`);
+  
+      if (!text) {
+        // اگر چیزی تایپ نشده، حذف وضعیت تایپ
+        set(myTypingRef, null).catch(() => {});
+        return;
+      }
+  
+      set(myTypingRef, {
+        name,
+        ts: serverTimestamp()
+      }).catch(() => {});
+  
+      if (typingTimeout) clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(() => {
+        set(myTypingRef, null).catch(() => {});
+      }, 2500);
+    }
+  
+    messageInput.addEventListener("input", sendTypingStatus);
+  
+    onValue(typingRef, (snapshot) => {
+      const val = snapshot.val();
+      if (!val) {
+        typingIndicator.style.display = "none";
+        typingIndicator.textContent = "";
+        return;
+      }
+  
+      const others = [];
+      Object.keys(val).forEach((id) => {
+        if (id === myId) return;
+        const t = val[id];
+        if (t && t.name) others.push(t.name);
+      });
+  
+      if (others.length === 0) {
+        typingIndicator.style.display = "none";
+        typingIndicator.textContent = "";
+      } else if (others.length === 1) {
+        typingIndicator.style.display = "block";
+        typingIndicator.textContent = `${others[0]} در حال تایپ است...`;
+      } else {
+        typingIndicator.style.display = "block";
+        typingIndicator.textContent = `${others.join(" و ")} در حال تایپ هستند...`;
+      }
+    });
+  
+    // ---------- ارسال پیام متنی ----------
+    async function sendMessage() {
+      const text = messageInput.value.trim();
+      const name = nameInput.value.trim() || "Anonymous";
+  
+      if (!text && !fileInput.files[0]) {
         messageInput.focus();
         return;
       }
-      const name = getDisplayName();
-
-      const payload = {
+  
+      let imageUrl = null;
+  
+      // اگر فایل انتخاب شده (ارسال عکس)
+      const file = fileInput.files[0];
+      if (file) {
+        const path = `rooms/${currentRoom}/uploads/${myId}-${Date.now()}-${file.name}`;
+        const imgRef = storageRef(storage, path);
+        try {
+          await uploadBytes(imgRef, file);
+          imageUrl = await getDownloadURL(imgRef);
+        } catch (e) {
+          console.error(e);
+          showError("آپلود تصویر ناموفق بود.");
+        } finally {
+          fileInput.value = "";
+        }
+      }
+  
+      if (!text && !imageUrl) {
+        // هیچی برای ارسال نیست
+        return;
+      }
+  
+      const messagePayload = {
         name,
-        text: trimmed || "",
+        text: text || "",
+        imageUrl: imageUrl || null,
         authorId: myId,
         createdAt: Date.now(),
-        ts: serverTimestamp(),
-        imageUrl: imageUrl || null
+        ts: serverTimestamp()
       };
-
+  
       try {
-        await push(roomMessagesRef(currentRoom), payload);
-        if (!imageUrl) {
-          messageInput.value = "";
-        }
-        // بعد از ارسال، تایپینگ را false می‌کنیم
-        set(myTypingRef(currentRoom), {
-          name,
-          typing: false,
-          updatedAt: serverTimestamp()
-        });
+        await push(messagesRef, messagePayload);
+        messageInput.value = "";
+        sendTypingStatus(); // پاک کردن وضعیت تایپ
+        updatePresence();
       } catch (err) {
         console.error(err);
         showError("خطا در ارسال پیام. لطفاً دوباره امتحان کن.");
       }
     }
-
-    sendBtn.addEventListener("click", () => {
-      sendMessage(messageInput.value, null);
-    });
-
+  
+    sendBtn.addEventListener("click", sendMessage);
+  
     messageInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
-        sendMessage(messageInput.value, null);
+        sendMessage();
       }
     });
-
-    // Event برای حذف پیام (delegation)
-    messagesContainer.addEventListener("click", (e) => {
-      const btn = e.target.closest(".msg-delete-btn");
-      if (!btn) return;
-      const key = btn.dataset.key;
-      if (!key) return;
-      if (!confirm("پیام حذف شود؟")) return;
-
-      remove(ref(db, `rooms/${currentRoom}/messages/${key}`)).catch((err) => {
-        console.error(err);
-        showError("حذف پیام انجام نشد.");
-      });
-    });
-
-    // Typing indicator
-    function sendTypingStatus() {
-      const name = getDisplayName();
-      set(myTypingRef(currentRoom), {
-        name,
-        typing: true,
-        updatedAt: serverTimestamp()
-      }).catch(() => {});
-
-      if (typingTimeout) clearTimeout(typingTimeout);
-      typingTimeout = setTimeout(() => {
-        set(myTypingRef(currentRoom), {
-          name,
-          typing: false,
-          updatedAt: serverTimestamp()
-        }).catch(() => {});
-      }, 2000);
-    }
-
-    messageInput.addEventListener("input", () => {
-      sendTypingStatus();
-    });
-
-    // حضور آنلاین
-    function updatePresence() {
-      const name = getDisplayName();
-      set(myOnlineRef(currentRoom), {
-        name,
-        lastSeen: serverTimestamp()
-      }).catch(() => {});
-    }
-
-    nameInput.addEventListener("input", () => {
-      updatePresence();
-    });
-
-    function setupPresenceForRoom(roomId) {
-      const onlineRef = myOnlineRef(roomId);
-      const name = getDisplayName();
-      set(onlineRef, {
-        name,
-        lastSeen: serverTimestamp()
-      }).catch(() => {});
-      onDisconnect(onlineRef).remove();
-    }
-
-    function listenOnlineUsers(roomId) {
-      if (unsubscribeOnline) unsubscribeOnline();
-
-      unsubscribeOnline = onValue(roomOnlineRef(roomId), (snapshot) => {
-        onlineList.innerHTML = "";
-        const val = snapshot.val();
-        if (!val) return;
-        const entries = Object.values(val);
-        entries.forEach((u) => {
-          const li = document.createElement("li");
-          const dot = document.createElement("span");
-          dot.className = "online-dot";
-          const nameSpan = document.createElement("span");
-          nameSpan.textContent = u.name || "Guest";
-          li.appendChild(dot);
-          li.appendChild(nameSpan);
-          onlineList.appendChild(li);
-        });
-      });
-    }
-
-    function listenTyping(roomId) {
-      if (unsubscribeTyping) unsubscribeTyping();
-
-      unsubscribeTyping = onValue(roomTypingRef(roomId), (snapshot) => {
-        const val = snapshot.val();
-        if (!val) {
-          typingIndicator.textContent = "";
-          return;
-        }
-        const typingUsers = Object.values(val)
-          .filter((t) => t.typing && t.name && t.name.trim())
-          .filter((t) => t.name !== getDisplayName());
-        if (!typingUsers.length) {
-          typingIndicator.textContent = "";
-          return;
-        }
-        const names = typingUsers.map((t) => t.name).slice(0, 3);
-        if (names.length === 1) {
-          typingIndicator.textContent = `${names[0]} در حال تایپ است...`;
-        } else {
-          typingIndicator.textContent = `${names.join("، ")} در حال تایپ هستند...`;
-        }
-      });
-    }
-
-    function listenMessages(roomId) {
-      if (unsubscribeMessages) unsubscribeMessages();
-      if (unsubscribeRemoved) unsubscribeRemoved();
-
-      messagesContainer.innerHTML = "";
-
-      unsubscribeMessages = onChildAdded(roomMessagesRef(roomId), (snapshot) => {
-        const data = snapshot.val();
-        if (!data) return;
-        const msgObj = {
-          name: data.name,
-          text: data.text,
-          authorId: data.authorId,
-          createdAt: data.createdAt,
-          imageUrl: data.imageUrl,
-          key: snapshot.key
-        };
-        appendMessageToUI(msgObj);
-        notifyNewMessage(msgObj);
-      });
-
-      unsubscribeRemoved = onChildRemoved(roomMessagesRef(roomId), (snapshot) => {
-        const key = snapshot.key;
-        const el = messagesContainer.querySelector(`[data-key="${key}"]`);
-        if (el) el.remove();
-      });
-    }
-
-    // --- مدیریت اتاق‌ها (Tabs + DB) ---
-    function renderRoomTabs() {
-      roomTabsContainer.innerHTML = "";
-
-      const allRooms = [
-        defaultRooms.general,
-        defaultRooms.friends,
-        defaultRooms.family,
-        ...Object.values(customRooms)
-      ];
-
-      allRooms.forEach((room) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "room-tab" + (currentRoom === room.id ? " active" : "");
-        btn.dataset.room = room.id;
-        btn.textContent = room.name + (room.isPrivate ? " 🔒" : "");
-        roomTabsContainer.appendChild(btn);
-      });
-    }
-
-    function askRoomPasswordIfNeeded(roomId) {
-      // اول: اگر اتاق پیش‌فرض است
-      if (defaultRooms[roomId] && defaultRooms[roomId].isPrivate) {
-        const stored = sessionStorage.getItem("roomAccess-" + roomId);
-        if (stored === "ok") return true;
-
-        const answer = prompt("رمز این اتاق را وارد کن:");
-        if (answer === defaultRooms[roomId].password) {
-          sessionStorage.setItem("roomAccess-" + roomId, "ok");
-          return true;
-        } else {
-          showError("رمز نادرست است.");
-          return false;
-        }
-      }
-
-      // اگر اتاق سفارشی از دیتابیس است
-      const roomMeta = customRooms[roomId];
-      if (!roomMeta || !roomMeta.isPrivate || !roomMeta.hasPassword) {
-        return true;
-      }
-
-      const stored = sessionStorage.getItem("roomAccess-" + roomId);
-      if (stored === "ok") return true;
-
-      const answer = prompt("رمز این اتاق را وارد کن:");
-      if (answer === roomMeta.password) {
-        sessionStorage.setItem("roomAccess-" + roomId, "ok");
-        return true;
-      } else {
-        showError("رمز نادرست است.");
-        return false;
-      }
-    }
-
-    function switchRoom(roomId) {
-      if (roomId === currentRoom) return;
-      if (!askRoomPasswordIfNeeded(roomId)) return;
-
-      // خروج از اتاق قبلی: حضور را حذف می‌کنیم
-      remove(myOnlineRef(currentRoom)).catch(() => {});
-
-      currentRoom = roomId;
-      typingIndicator.textContent = "";
-      onlineList.innerHTML = "";
-      renderRoomTabs();
-      listenMessages(roomId);
-      listenTyping(roomId);
-      listenOnlineUsers(roomId);
-      setupPresenceForRoom(roomId);
-      updatePresence();
-    }
-
-    roomTabsContainer.addEventListener("click", (e) => {
-      const btn = e.target.closest(".room-tab");
-      if (!btn || btn.classList.contains("create")) return;
-      const roomId = btn.dataset.room;
-      if (!roomId) return;
-      switchRoom(roomId);
-    });
-
-    // ساخت اتاق جدید
-    createRoomBtn.addEventListener("click", async () => {
-      const name = prompt("نام اتاق جدید را وارد کن:");
-      if (!name) return;
-      const isPrivate = confirm("اتاق خصوصی باشد؟ اگر Yes را بزنی، رمز می‌خواهد.");
-      let password = "";
-      if (isPrivate) {
-        password = prompt("رمز اتاق را وارد کن (می‌توانی خالی بگذاری):") || "";
-      }
-
-      const payload = {
-        name,
-        isPrivate: !!isPrivate,
-        hasPassword: !!password,
-        password
-      };
-
-      try {
-        const newRef = await push(roomsMetaRef, payload);
-        // در customRooms ذخیره می‌شود وقتی onValue تریگر شود
-        switchRoom(newRef.key);
-      } catch (err) {
-        console.error(err);
-        showError("اتاق ساخته نشد، دوباره امتحان کن.");
-      }
-    });
-
-    // لیسنر برای متادیتای اتاق‌ها از دیتابیس (roomsMeta)
-    onValue(roomsMetaRef, (snapshot) => {
-      const val = snapshot.val() || {};
-      customRooms = {};
-      Object.keys(val).forEach((id) => {
-        const r = val[id];
-        customRooms[id] = {
-          id,
-          name: r.name || "اتاق جدید",
-          isPrivate: !!r.isPrivate,
-          hasPassword: !!r.hasPassword,
-          password: r.password || ""
-        };
-      });
-      renderRoomTabs();
-    });
-
-    // ارسال تصویر
+  
+    // ---------- ارسال تصویر ----------
     imageBtn.addEventListener("click", () => {
-      imageInput.value = "";
-      imageInput.click();
+      fileInput.click();
     });
-
-    imageInput.addEventListener("change", async () => {
-      const file = imageInput.files && imageInput.files[0];
-      if (!file) return;
-      if (!file.type.startsWith("image/")) {
-        showError("فقط فایل تصویری مجاز است.");
-        return;
+  
+    fileInput.addEventListener("change", () => {
+      // اگر فقط عکس می‌فرسته و متن خالیه، همون sendMessage عکس رو می‌فرسته
+      // کاربر می‌تونه قبلش کپشن هم تایپ کنه
+    });
+  
+    // ---------- دریافت پیام‌ها (قبلی + جدید) ----------
+    onChildAdded(messagesRef, (snapshot) => {
+      const data = snapshot.val();
+      if (!data) return;
+  
+      const msgObj = {
+        name: data.name,
+        text: data.text,
+        imageUrl: data.imageUrl || null,
+        authorId: data.authorId,
+        createdAt: data.createdAt
+      };
+  
+      appendMessageToUI(msgObj, snapshot.key);
+  
+      // نوتیفیکیشن برای پیام‌های دیگران وقتی صفحه مخفی است
+      if (
+        notificationsEnabled &&
+        data.authorId !== myId &&
+        typeof Notification !== "undefined" &&
+        document.hidden
+      ) {
+        try {
+          new Notification(data.name || "کاربر", {
+            body: data.text || "📷 تصویر جدید",
+            icon: ""
+          });
+        } catch (e) {
+          console.error("Notification error:", e);
+        }
       }
-      const maxSize = 2 * 1024 * 1024; // 2MB
-      if (file.size > maxSize) {
-        showError("حجم تصویر باید کمتر از 2 مگابایت باشد.");
-        return;
-      }
-
+    });
+  
+    // ---------- حذف پیام‌ها ----------
+    async function deleteMessage(msgId) {
+      const ok = confirm("این پیام حذف شود؟");
+      if (!ok) return;
       try {
-        const fileName = `${myId}-${Date.now()}-${file.name}`;
-        const sRef = storageRef(storage, `chat-images/${currentRoom}/${fileName}`);
-        await uploadBytes(sRef, file);
-        const url = await getDownloadURL(sRef);
-        await sendMessage(messageInput.value, url);
-        messageInput.value = "";
-      } catch (err) {
-        console.error(err);
-        showError("آپلود تصویر انجام نشد.");
+        await remove(dbRef(db, `rooms/${currentRoom}/messages/${msgId}`));
+      } catch (e) {
+        console.error(e);
+        showError("حذف پیام ناموفق بود.");
       }
-    });
-
-    // Notifications permission
-    if ("Notification" in window) {
-      Notification.requestPermission().catch(() => {});
     }
-
-    // شروع اولیه: اتاق عمومی
-    renderRoomTabs();
-    listenMessages(currentRoom);
-    listenTyping(currentRoom);
-    listenOnlineUsers(currentRoom);
-    setupPresenceForRoom(currentRoom);
-    updatePresence();
+  
+    onChildRemoved(messagesRef, (snapshot) => {
+      const id = snapshot.key;
+      const el = messagesContainer.querySelector(`.msg-row[data-id="${id}"]`);
+      if (el) el.remove();
+    });
   </script>
+
 </body>
 </html>
