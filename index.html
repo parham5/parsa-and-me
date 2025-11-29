@@ -118,7 +118,7 @@
       margin-inline-start: auto;
     }
 
-    /* پیام‌ها – ارتفاع ثابت + اسکرول */
+    /* پیام‌ها – فقط همین اسکرولی می‌شود و قدّ صفحه ثابت می‌ماند */
     .messages {
       height: calc(100vh - 260px);
       max-height: calc(100vh - 260px);
@@ -201,6 +201,13 @@
       color: #f9fafb;
     }
 
+    .msg-bubble img {
+      max-width: 240px;
+      border-radius: 12px;
+      margin-top: 4px;
+      display: block;
+    }
+
     .msg-row.me .msg-bubble {
       background: linear-gradient(135deg, #4f46e5, #06b6d4);
       border: none;
@@ -209,6 +216,19 @@
 
     .msg-row.me .msg-meta {
       justify-content: flex-end;
+    }
+
+    .msg-delete-btn {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 12px;
+      cursor: pointer;
+      padding: 0 2px;
+    }
+
+    .msg-delete-btn:hover {
+      color: var(--danger);
     }
 
     @keyframes fadeUp {
@@ -298,13 +318,38 @@
       height: 16px;
     }
 
+    .btn-icon {
+      border-radius: 999px;
+      border: 1px dashed rgba(148,163,184,0.7);
+      background: transparent;
+      color: var(--text-muted);
+      padding: 7px 10px;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-icon:hover {
+      border-style: solid;
+      color: var(--text);
+    }
+
     .tiny-note {
       font-size: 10px;
       color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .tiny-note strong {
       color: #e5e7eb;
+    }
+
+    #typingIndicator {
+      min-height: 1.1em;
     }
 
     /* Right pane (info) */
@@ -327,6 +372,7 @@
       border-radius: 999px;
       background: rgba(15,23,42,0.9);
       border: 1px solid rgba(148,163,184,0.4);
+      color: #e5e7eb;
     }
 
     .info-title {
@@ -341,7 +387,7 @@
     }
 
     .info-card {
-      margin-top: 10px;
+      margin-top: 4px;
       padding: 12px;
       border-radius: 16px;
       background: rgba(15,23,42,0.86);
@@ -402,6 +448,30 @@
       display: none;
     }
 
+    .online-list {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0 0;
+      max-height: 120px;
+      overflow-y: auto;
+    }
+
+    .online-list li {
+      font-size: 11px;
+      padding: 2px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+    }
+
+    .online-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
     @media (max-width: 900px) {
       .app-inner {
         grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
@@ -420,7 +490,7 @@
       }
     }
 
-    /* تم روشن ساده با کلاس روی body */
+    /* تم روشن ساده */
     body.light-theme {
       background: #f3f4f6;
       color: #020617;
@@ -449,7 +519,7 @@
           <div class="chat-avatar">P</div>
           <div class="chat-title-block">
             <div class="chat-title">Parham Chat</div>
-            <div class="chat-subtitle">چت گروهی ساده برای صحبت با دوست‌هات</div>
+            <div class="chat-subtitle">چت گروهی ساده با دوست‌ها و خانواده</div>
           </div>
           <div class="chat-status-dot" title="Realtime"></div>
         </header>
@@ -463,13 +533,14 @@
           </div>
 
           <div class="main-input-row">
+            <button id="imageBtn" class="btn-icon" type="button" title="ارسال تصویر">📎</button>
             <input
               id="messageInput"
               class="msg-input"
               type="text"
               placeholder="پیام خودت رو بنویس و Enter بزن..."
             />
-            <button id="sendBtn" class="btn-send">
+            <button id="sendBtn" class="btn-send" type="button">
               <span>ارسال</span>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                    fill="none" stroke="currentColor" stroke-width="2"
@@ -481,23 +552,29 @@
           </div>
 
           <p class="tiny-note">
-            تمام پیام‌ها در <strong>Firebase Realtime Database</strong> ذخیره می‌شوند و
-            برای همه‌ی افراد آنلاین نمایش داده می‌شوند.
+            <span id="typingIndicator"></span>
+            <span>
+              پیام‌ها در <strong>Firebase Realtime Database</strong> ذخیره می‌شوند و برای همه‌ی
+              افراد آنلاین در همان اتاق نمایش داده می‌شوند.
+            </span>
           </p>
           <div id="errorBanner" class="error-banner"></div>
         </div>
+
+        <!-- input انتخاب عکس (پنهان) -->
+        <input id="imageInput" type="file" accept="image/*" style="display:none" />
       </div>
 
       <!-- Info pane -->
       <aside class="info-pane">
         <div class="info-badge">
-          <span>🔥 Realtime Firebase Chat</span>
+          <span>Parham Chat</span>
         </div>
         <div>
-          <h2 class="info-title">چت ساده اما حرفه‌ای</h2>
+          <h2 class="info-title">چت ساده، سبک و هم‌زمان</h2>
           <p class="info-sub">
-            این صفحه یک پیام‌رسان ساده است که با استفاده از Firebase Realtime Database ساخته شده.
-            هر پیامی که ارسال می‌کنی، برای همه‌ی افرادی که همین صفحه را باز کرده‌اند به صورت آنی نمایش داده می‌شود.
+            اتاق عمومی، دوستان و خانوادگی داری؛ پیام‌ها ذخیره می‌شن، روی هر دستگاهی که باز کنی
+            هم‌زمان نمایش داده می‌شن.
           </p>
         </div>
 
@@ -505,25 +582,30 @@
           <h3>ویژگی‌ها</h3>
           <div class="pill-row">
             <span class="pill">Realtime 🔁</span>
-            <span class="pill">چند‌نفره 👥</span>
-            <span class="pill">نمایش نام فرستنده 🏷️</span>
-            <span class="pill">ذخیره در دیتابیس ☁️</span>
+            <span class="pill">چندنفره 👥</span>
+            <span class="pill">نام فرستنده 🏷️</span>
+            <span class="pill">ارسال تصویر 📷</span>
+            <span class="pill">حذف پیام خودت 🗑️</span>
           </div>
         </div>
 
         <div class="info-card">
-          <h3>نکته‌ی مهم</h3>
-          <p>
-            برای تست راحت، در بخش <strong>Realtime Database → Rules</strong> در Firebase می‌تونی موقتاً
-            دسترسی را روی <code>.read: true</code> و <code>.write: true</code> قرار بدی.
-            بعد از تست حتماً قوانین را سخت‌گیرانه‌تر کن.
-          </p>
+          <h3>کاربران آنلاین</h3>
+          <ul id="onlineList" class="online-list"></ul>
+        </div>
+
+        <div class="info-card">
+          <h3>تنظیمات</h3>
+          <div class="pill-row">
+            <button id="toggleThemeBtn" class="pill" type="button">تم روشن / تیره</button>
+            <button id="enableNotifBtn" class="pill" type="button">فعال کردن نوتیفیکیشن</button>
+          </div>
         </div>
 
         <div class="info-card">
           <div class="status-row">
             <span class="status-dot-live"></span>
-            <span>همه‌ی تب‌ها و دستگاه‌ها هم‌زمان سینک می‌شوند. این همون رفتاریه که از پیام‌رسان‌ها انتظار داری.</span>
+            <span>لیست پیام‌ها و وضعیت تایپ، روی همه تب‌ها و دستگاه‌ها زنده آپدیت می‌شود.</span>
           </div>
         </div>
       </aside>
@@ -601,59 +683,12 @@
     const messageInput = document.getElementById("messageInput");
     const sendBtn = document.getElementById("sendBtn");
     const errorBanner = document.getElementById("errorBanner");
-
-    // اضافه کردن indicator تایپ کردن
-    const chatInputBar = document.querySelector(".chat-input-bar");
-    const typingIndicator = document.createElement("p");
-    typingIndicator.id = "typingIndicator";
-    typingIndicator.className = "tiny-note";
-    typingIndicator.style.display = "none";
-    chatInputBar.appendChild(typingIndicator);
-
-    // اضافه کردن کارت کاربران آنلاین + تنظیمات در پنل راست
-    const infoPane = document.querySelector(".info-pane");
-
-    const onlineCard = document.createElement("div");
-    onlineCard.className = "info-card";
-    onlineCard.innerHTML = `
-      <h3>کاربران آنلاین</h3>
-      <ul id="onlineList" style="margin-top:4px; list-style:none; padding:0; font-size:11px;"></ul>
-    `;
-    infoPane.appendChild(onlineCard);
+    const typingIndicator = document.getElementById("typingIndicator");
     const onlineListEl = document.getElementById("onlineList");
-
-    const settingsCard = document.createElement("div");
-    settingsCard.className = "info-card";
-    settingsCard.innerHTML = `
-      <h3>تنظیمات</h3>
-      <div class="pill-row">
-        <button id="toggleThemeBtn" class="pill">تم روشن / تیره</button>
-        <button id="enableNotifBtn" class="pill">فعال کردن نوتیفیکیشن</button>
-      </div>
-    `;
-    infoPane.appendChild(settingsCard);
+    const imageBtn = document.getElementById("imageBtn");
+    const imageInput = document.getElementById("imageInput");
     const toggleThemeBtn = document.getElementById("toggleThemeBtn");
     const enableNotifBtn = document.getElementById("enableNotifBtn");
-
-    // ---------- دکمه ارسال عکس ----------
-    const mainInputRow = document.querySelector(".main-input-row");
-    const imageBtn = document.createElement("button");
-    imageBtn.type = "button";
-    imageBtn.textContent = "📷";
-    imageBtn.title = "ارسال تصویر";
-    imageBtn.style.borderRadius = "999px";
-    imageBtn.style.border = "none";
-    imageBtn.style.padding = "8px 10px";
-    imageBtn.style.background = "rgba(15,23,42,0.9)";
-    imageBtn.style.color = "#e5e7eb";
-    imageBtn.style.cursor = "pointer";
-    mainInputRow.insertBefore(imageBtn, sendBtn);
-
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = "image/*";
-    fileInput.style.display = "none";
-    document.body.appendChild(fileInput);
 
     // ---------- شناسه یکتای تب ----------
     const myId = self.crypto?.randomUUID
@@ -749,6 +784,15 @@
       timeSpan.textContent = formatTimeFromDate(dt);
       meta.appendChild(timeSpan);
 
+      if (isMe && msgId) {
+        const delBtn = document.createElement("button");
+        delBtn.className = "msg-delete-btn";
+        delBtn.textContent = "✖";
+        delBtn.title = "حذف پیام";
+        delBtn.addEventListener("click", () => deleteMessage(msgId));
+        meta.appendChild(delBtn);
+      }
+
       const bubble = document.createElement("div");
       bubble.className = "msg-bubble";
       if (text) bubble.textContent = text;
@@ -760,29 +804,8 @@
         }
         const img = document.createElement("img");
         img.src = imageUrl;
-        img.style.maxWidth = "240px";
-        img.style.borderRadius = "12px";
-        img.style.marginTop = "4px";
         img.alt = "image";
         bubble.appendChild(img);
-      }
-
-      if (isMe && msgId) {
-        const delBtn = document.createElement("button");
-        delBtn.textContent = "✖";
-        delBtn.title = "حذف پیام";
-        delBtn.style.marginInlineStart = "6px";
-        delBtn.style.fontSize = "10px";
-        delBtn.style.border = "none";
-        delBtn.style.background = "transparent";
-        delBtn.style.color = "rgba(248,250,252,0.7)";
-        delBtn.style.cursor = "pointer";
-
-        delBtn.addEventListener("click", () => {
-          deleteMessage(msgId);
-        });
-
-        meta.appendChild(delBtn);
       }
 
       wrap.appendChild(meta);
@@ -823,7 +846,12 @@
         const nm = u.name || "Guest";
         names.push(nm);
         const li = document.createElement("li");
-        li.textContent = nm;
+        const dot = document.createElement("span");
+        dot.className = "online-dot";
+        const span = document.createElement("span");
+        span.textContent = nm;
+        li.appendChild(dot);
+        li.appendChild(span);
         onlineListEl.appendChild(li);
       });
       document.title = `Parham Chat (${names.length} online)`;
@@ -858,7 +886,6 @@
     onValue(typingRef, (snapshot) => {
       const val = snapshot.val();
       if (!val) {
-        typingIndicator.style.display = "none";
         typingIndicator.textContent = "";
         return;
       }
@@ -871,13 +898,10 @@
       });
 
       if (others.length === 0) {
-        typingIndicator.style.display = "none";
         typingIndicator.textContent = "";
       } else if (others.length === 1) {
-        typingIndicator.style.display = "block";
         typingIndicator.textContent = `${others[0]} در حال تایپ است...`;
       } else {
-        typingIndicator.style.display = "block";
         typingIndicator.textContent = `${others.join(" و ")} در حال تایپ هستند...`;
       }
     });
@@ -887,13 +911,13 @@
       const text = messageInput.value.trim();
       const name = nameInput.value.trim() || "Anonymous";
 
-      if (!text && !fileInput.files[0]) {
+      if (!text && !imageInput.files[0]) {
         messageInput.focus();
         return;
       }
 
       let imageUrl = null;
-      const file = fileInput.files[0];
+      const file = imageInput.files[0];
       if (file) {
         const path = `rooms/${currentRoom}/uploads/${myId}-${Date.now()}-${file.name}`;
         const imgRef = storageRef(storage, path);
@@ -904,7 +928,7 @@
           console.error(e);
           showError("آپلود تصویر ناموفق بود.");
         } finally {
-          fileInput.value = "";
+          imageInput.value = "";
         }
       }
 
@@ -940,7 +964,7 @@
     });
 
     imageBtn.addEventListener("click", () => {
-      fileInput.click();
+      imageInput.click();
     });
 
     // ---------- دریافت پیام‌ها ----------
