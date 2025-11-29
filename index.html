@@ -118,8 +118,10 @@
       margin-inline-start: auto;
     }
 
+    /* پیام‌ها – ارتفاع ثابت + اسکرول */
     .messages {
-      flex: 1;
+      height: calc(100vh - 260px);
+      max-height: calc(100vh - 260px);
       padding: 16px 20px;
       overflow-y: auto;
       display: flex;
@@ -196,6 +198,7 @@
       word-break: break-word;
       background: rgba(15,23,42,0.85);
       border: 1px solid rgba(148,163,184,0.3);
+      color: #f9fafb;
     }
 
     .msg-row.me .msg-bubble {
@@ -369,6 +372,7 @@
       border: 1px solid rgba(148,163,184,0.6);
       font-size: 10px;
       color: #e5e7eb;
+      cursor: pointer;
     }
 
     .status-dot-live {
@@ -415,6 +419,25 @@
         display: none;
       }
     }
+
+    /* تم روشن ساده با کلاس روی body */
+    body.light-theme {
+      background: #f3f4f6;
+      color: #020617;
+    }
+    body.light-theme .app-inner {
+      background: #e5e7eb;
+    }
+    body.light-theme .chat-pane,
+    body.light-theme .info-pane {
+      background: #ffffffee;
+      color: #020617;
+    }
+    body.light-theme .msg-bubble {
+      background: #e5e7eb;
+      border-color: #cbd5f5;
+      color: #020617;
+    }
   </style>
 </head>
 <body>
@@ -448,7 +471,9 @@
             />
             <button id="sendBtn" class="btn-send">
               <span>ارسال</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 2 11 13" />
                 <path d="M22 2 15 22 11 13 2 9 22 2z" />
               </svg>
@@ -456,7 +481,8 @@
           </div>
 
           <p class="tiny-note">
-            تمام پیام‌ها در <strong>Firebase Realtime Database</strong> ذخیره می‌شوند و برای همه‌ی افراد آنلاین نمایش داده می‌شوند.
+            تمام پیام‌ها در <strong>Firebase Realtime Database</strong> ذخیره می‌شوند و
+            برای همه‌ی افراد آنلاین نمایش داده می‌شوند.
           </p>
           <div id="errorBanner" class="error-banner"></div>
         </div>
@@ -488,8 +514,9 @@
         <div class="info-card">
           <h3>نکته‌ی مهم</h3>
           <p>
-            برای تست راحت، در بخش <strong>Realtime Database → Rules</strong> در Firebase می‌تونی موقتاً دسترسی را
-            روی <code>.read: true</code> و <code>.write: true</code> قرار بدی. بعد از تست حتماً قوانین را سخت‌گیرانه‌تر کن.
+            برای تست راحت، در بخش <strong>Realtime Database → Rules</strong> در Firebase می‌تونی موقتاً
+            دسترسی را روی <code>.read: true</code> و <code>.write: true</code> قرار بدی.
+            بعد از تست حتماً قوانین را سخت‌گیرانه‌تر کن.
           </p>
         </div>
 
@@ -517,14 +544,14 @@
       serverTimestamp,
       onDisconnect
     } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
-  
+
     import {
       getStorage,
       ref as storageRef,
       uploadBytes,
       getDownloadURL
     } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js";
-  
+
     // ---------- تنظیمات Firebase ----------
     const firebaseConfig = {
       apiKey: "AIzaSyCveXOeDHup-MKQnMLe7gxSqePFOfPaKRs",
@@ -536,11 +563,11 @@
       measurementId: "G-7HK5GX0XFL",
       databaseURL: "https://facebook-chat-3c9e1-default-rtdb.firebaseio.com"
     };
-  
+
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const storage = getStorage(app);
-  
+
     // ---------- انتخاب اتاق (Rooms) ----------
     function chooseRoom() {
       let saved = localStorage.getItem("parhamChatRoom") || "general";
@@ -548,7 +575,7 @@
         "اتاق را انتخاب کن: general / friends / family\n(خالی = general)",
         saved
       );
-  
+
       room = (room || "general").trim().toLowerCase();
       if (room === "family") {
         const pass = prompt("رمز اتاق خانوادگی چیست؟ (مثلاً 1234)");
@@ -560,21 +587,21 @@
       localStorage.setItem("parhamChatRoom", room);
       return room;
     }
-  
+
     const currentRoom = chooseRoom();
-  
+
     // ---------- ریفرنس‌های دیتابیس ----------
     const messagesRef = dbRef(db, `rooms/${currentRoom}/messages`);
     const typingRef = dbRef(db, `rooms/${currentRoom}/typing`);
     const onlineRef = dbRef(db, `rooms/${currentRoom}/online`);
-  
+
     // ---------- المنت‌های صفحه ----------
     const messagesContainer = document.getElementById("messages");
     const nameInput = document.getElementById("nameInput");
     const messageInput = document.getElementById("messageInput");
     const sendBtn = document.getElementById("sendBtn");
     const errorBanner = document.getElementById("errorBanner");
-  
+
     // اضافه کردن indicator تایپ کردن
     const chatInputBar = document.querySelector(".chat-input-bar");
     const typingIndicator = document.createElement("p");
@@ -582,11 +609,10 @@
     typingIndicator.className = "tiny-note";
     typingIndicator.style.display = "none";
     chatInputBar.appendChild(typingIndicator);
-  
-    // اضافه کردن کارت تنظیمات + کاربران آنلاین در پنل راست
+
+    // اضافه کردن کارت کاربران آنلاین + تنظیمات در پنل راست
     const infoPane = document.querySelector(".info-pane");
-  
-    // کارت کاربران آنلاین
+
     const onlineCard = document.createElement("div");
     onlineCard.className = "info-card";
     onlineCard.innerHTML = `
@@ -595,8 +621,7 @@
     `;
     infoPane.appendChild(onlineCard);
     const onlineListEl = document.getElementById("onlineList");
-  
-    // کارت تنظیمات
+
     const settingsCard = document.createElement("div");
     settingsCard.className = "info-card";
     settingsCard.innerHTML = `
@@ -609,7 +634,7 @@
     infoPane.appendChild(settingsCard);
     const toggleThemeBtn = document.getElementById("toggleThemeBtn");
     const enableNotifBtn = document.getElementById("enableNotifBtn");
-  
+
     // ---------- دکمه ارسال عکس ----------
     const mainInputRow = document.querySelector(".main-input-row");
     const imageBtn = document.createElement("button");
@@ -622,21 +647,19 @@
     imageBtn.style.background = "rgba(15,23,42,0.9)";
     imageBtn.style.color = "#e5e7eb";
     imageBtn.style.cursor = "pointer";
-  
-    // دکمه قبل از send قرار بگیره
     mainInputRow.insertBefore(imageBtn, sendBtn);
-  
+
     const fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = "image/*";
     fileInput.style.display = "none";
     document.body.appendChild(fileInput);
-  
+
     // ---------- شناسه یکتای تب ----------
     const myId = self.crypto?.randomUUID
       ? self.crypto.randomUUID()
       : "id-" + Math.random().toString(36).slice(2);
-  
+
     // ---------- Theme ----------
     let currentTheme = localStorage.getItem("parhamChatTheme") || "dark";
     function applyTheme() {
@@ -646,34 +669,26 @@
         document.body.classList.remove("light-theme");
       }
     }
-    // استایل ساده برای تم روشن
-    const themeStyle = document.createElement("style");
-    themeStyle.textContent = `
-      body.light-theme {
-        background: #f3f4f6;
-        color: #020617;
-      }
-      body.light-theme .app-inner {
-        background: #e5e7eb;
-      }
-      body.light-theme .chat-pane,
-      body.light-theme .info-pane {
-        background: #ffffffee;
-        color: #020617;
-      }
-    `;
-    document.head.appendChild(themeStyle);
     applyTheme();
-  
+
     toggleThemeBtn.addEventListener("click", () => {
       currentTheme = currentTheme === "dark" ? "light" : "dark";
       localStorage.setItem("parhamChatTheme", currentTheme);
       applyTheme();
     });
-  
+
     // ---------- Notifications ----------
     let notificationsEnabled = false;
-  
+
+    function showError(msg) {
+      if (!errorBanner) return;
+      errorBanner.textContent = msg;
+      errorBanner.style.display = "block";
+      setTimeout(() => {
+        errorBanner.style.display = "none";
+      }, 4000);
+    }
+
     enableNotifBtn.addEventListener("click", async () => {
       if (!("Notification" in window)) {
         showError("مرورگرت از نوتیفیکیشن پشتیبانی نمی‌کند.");
@@ -692,63 +707,52 @@
         showError("خطا هنگام فعال‌سازی نوتیفیکیشن.");
       }
     });
-  
-    // ---------- نمایش خطا ----------
-    function showError(msg) {
-      if (!errorBanner) return;
-      errorBanner.textContent = msg;
-      errorBanner.style.display = "block";
-      setTimeout(() => {
-        errorBanner.style.display = "none";
-      }, 4000);
-    }
-  
+
     function formatTimeFromDate(d) {
       const h = d.getHours().toString().padStart(2, "0");
       const m = d.getMinutes().toString().padStart(2, "0");
       return `${h}:${m}`;
     }
-  
+
     // ---------- ساخت المنت پیام ----------
     function createMessageElement(messageObj, msgId) {
       const { name, text, imageUrl, authorId, createdAt } = messageObj;
       const isMe = authorId === myId;
-  
+
       const row = document.createElement("div");
       row.className = "msg-row" + (isMe ? " me" : "");
       if (msgId) row.dataset.id = msgId;
-  
+
       if (!isMe) {
         const avatar = document.createElement("div");
         avatar.className = "msg-avatar";
         avatar.textContent = (name || "?").slice(0, 2).toUpperCase();
         row.appendChild(avatar);
       }
-  
+
       const wrap = document.createElement("div");
       wrap.className = "msg-bubble-wrap";
-  
+
       const meta = document.createElement("div");
       meta.className = "msg-meta";
-  
+
       if (!isMe) {
         const nameSpan = document.createElement("span");
         nameSpan.className = "msg-name";
         nameSpan.textContent = name || "Guest";
         meta.appendChild(nameSpan);
       }
-  
+
       const timeSpan = document.createElement("span");
       timeSpan.className = "msg-time";
       const dt = createdAt ? new Date(createdAt) : new Date();
       timeSpan.textContent = formatTimeFromDate(dt);
       meta.appendChild(timeSpan);
-  
+
       const bubble = document.createElement("div");
       bubble.className = "msg-bubble";
       if (text) bubble.textContent = text;
-  
-      // اگر عکس هست، زیر متن نمایش داده بشه
+
       if (imageUrl) {
         if (text) {
           const br = document.createElement("br");
@@ -762,8 +766,7 @@
         img.alt = "image";
         bubble.appendChild(img);
       }
-  
-      // دکمه حذف برای پیام‌های خودم
+
       if (isMe && msgId) {
         const delBtn = document.createElement("button");
         delBtn.textContent = "✖";
@@ -774,30 +777,30 @@
         delBtn.style.background = "transparent";
         delBtn.style.color = "rgba(248,250,252,0.7)";
         delBtn.style.cursor = "pointer";
-  
+
         delBtn.addEventListener("click", () => {
           deleteMessage(msgId);
         });
-  
+
         meta.appendChild(delBtn);
       }
-  
+
       wrap.appendChild(meta);
       wrap.appendChild(bubble);
       row.appendChild(wrap);
-  
+
       return row;
     }
-  
+
     function appendMessageToUI(messageObj, msgId) {
       const el = createMessageElement(messageObj, msgId);
       messagesContainer.appendChild(el);
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
-  
+
     // ---------- حضور کاربر (online users) ----------
     const myPresenceRef = dbRef(db, `rooms/${currentRoom}/online/${myId}`);
-  
+
     function updatePresence() {
       const name = nameInput.value.trim() || "Anonymous";
       set(myPresenceRef, {
@@ -805,12 +808,11 @@
         lastSeen: serverTimestamp()
       }).catch((e) => console.error(e));
     }
-  
+
     updatePresence();
     onDisconnect(myPresenceRef).remove().catch(() => {});
-  
     nameInput.addEventListener("blur", updatePresence);
-  
+
     onValue(onlineRef, (snapshot) => {
       const val = snapshot.val() || {};
       const names = [];
@@ -824,38 +826,35 @@
         li.textContent = nm;
         onlineListEl.appendChild(li);
       });
-  
-      // عنوان صفحه: تعداد آنلاین
       document.title = `Parham Chat (${names.length} online)`;
     });
-  
+
     // ---------- Typing Indicator ----------
     let typingTimeout = null;
-  
+
     function sendTypingStatus() {
       const text = messageInput.value.trim();
       const name = nameInput.value.trim() || "Anonymous";
       const myTypingRef = dbRef(db, `rooms/${currentRoom}/typing/${myId}`);
-  
+
       if (!text) {
-        // اگر چیزی تایپ نشده، حذف وضعیت تایپ
         set(myTypingRef, null).catch(() => {});
         return;
       }
-  
+
       set(myTypingRef, {
         name,
         ts: serverTimestamp()
       }).catch(() => {});
-  
+
       if (typingTimeout) clearTimeout(typingTimeout);
       typingTimeout = setTimeout(() => {
         set(myTypingRef, null).catch(() => {});
       }, 2500);
     }
-  
+
     messageInput.addEventListener("input", sendTypingStatus);
-  
+
     onValue(typingRef, (snapshot) => {
       const val = snapshot.val();
       if (!val) {
@@ -863,14 +862,14 @@
         typingIndicator.textContent = "";
         return;
       }
-  
+
       const others = [];
       Object.keys(val).forEach((id) => {
         if (id === myId) return;
         const t = val[id];
         if (t && t.name) others.push(t.name);
       });
-  
+
       if (others.length === 0) {
         typingIndicator.style.display = "none";
         typingIndicator.textContent = "";
@@ -882,20 +881,18 @@
         typingIndicator.textContent = `${others.join(" و ")} در حال تایپ هستند...`;
       }
     });
-  
-    // ---------- ارسال پیام متنی ----------
+
+    // ---------- ارسال پیام ----------
     async function sendMessage() {
       const text = messageInput.value.trim();
       const name = nameInput.value.trim() || "Anonymous";
-  
+
       if (!text && !fileInput.files[0]) {
         messageInput.focus();
         return;
       }
-  
+
       let imageUrl = null;
-  
-      // اگر فایل انتخاب شده (ارسال عکس)
       const file = fileInput.files[0];
       if (file) {
         const path = `rooms/${currentRoom}/uploads/${myId}-${Date.now()}-${file.name}`;
@@ -910,12 +907,9 @@
           fileInput.value = "";
         }
       }
-  
-      if (!text && !imageUrl) {
-        // هیچی برای ارسال نیست
-        return;
-      }
-  
+
+      if (!text && !imageUrl) return;
+
       const messagePayload = {
         name,
         text: text || "",
@@ -924,42 +918,36 @@
         createdAt: Date.now(),
         ts: serverTimestamp()
       };
-  
+
       try {
         await push(messagesRef, messagePayload);
         messageInput.value = "";
-        sendTypingStatus(); // پاک کردن وضعیت تایپ
+        sendTypingStatus();
         updatePresence();
       } catch (err) {
         console.error(err);
         showError("خطا در ارسال پیام. لطفاً دوباره امتحان کن.");
       }
     }
-  
+
     sendBtn.addEventListener("click", sendMessage);
-  
+
     messageInput.addEventListener("keypress", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         sendMessage();
       }
     });
-  
-    // ---------- ارسال تصویر ----------
+
     imageBtn.addEventListener("click", () => {
       fileInput.click();
     });
-  
-    fileInput.addEventListener("change", () => {
-      // اگر فقط عکس می‌فرسته و متن خالیه، همون sendMessage عکس رو می‌فرسته
-      // کاربر می‌تونه قبلش کپشن هم تایپ کنه
-    });
-  
-    // ---------- دریافت پیام‌ها (قبلی + جدید) ----------
+
+    // ---------- دریافت پیام‌ها ----------
     onChildAdded(messagesRef, (snapshot) => {
       const data = snapshot.val();
       if (!data) return;
-  
+
       const msgObj = {
         name: data.name,
         text: data.text,
@@ -967,10 +955,9 @@
         authorId: data.authorId,
         createdAt: data.createdAt
       };
-  
+
       appendMessageToUI(msgObj, snapshot.key);
-  
-      // نوتیفیکیشن برای پیام‌های دیگران وقتی صفحه مخفی است
+
       if (
         notificationsEnabled &&
         data.authorId !== myId &&
@@ -987,7 +974,7 @@
         }
       }
     });
-  
+
     // ---------- حذف پیام‌ها ----------
     async function deleteMessage(msgId) {
       const ok = confirm("این پیام حذف شود؟");
@@ -999,13 +986,12 @@
         showError("حذف پیام ناموفق بود.");
       }
     }
-  
+
     onChildRemoved(messagesRef, (snapshot) => {
       const id = snapshot.key;
       const el = messagesContainer.querySelector(`.msg-row[data-id="${id}"]`);
       if (el) el.remove();
     });
   </script>
-
 </body>
 </html>
